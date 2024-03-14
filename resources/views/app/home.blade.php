@@ -75,7 +75,7 @@
                                     </ul>
                                     <ul
                                         class="m-auto mt-5 flex max-w-[180px] flex-col space-y-4 font-semibold text-white-dark">
-                                        <li class="flex items-left gap-2">
+                                        <li class="flex items-left gap-2 uppercase">
                                             <box-icon type="solid" name="school" color="#506690"
                                                 size="22px"></box-icon>
                                             {{ $etablissement->etablissement . ' (' . $etablissement->ville->ville . '-' . $etablissement->ville->region->region . ')' }}

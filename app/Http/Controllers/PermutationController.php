@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Etablissement;
 use App\Models\Formateur;
 use App\Models\Permutation;
+use App\Models\Region;
 use App\Models\Ville;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,21 +19,22 @@ class PermutationController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $currentFormateurId = Auth::user()->id;
+        $userEtabdata = Etablissement::where('id', $user->etablissement_id)->get();
+        $userVilledata = Ville::where('id', $userEtabdata[0]->ville_id)->get();
+        $villesRelatedToSameRegion = Ville::where('region_id', $userVilledata[0]->region_id)->get();
 
-        $currentFormateurPermutations = Permutation::where('formateur_id', $currentFormateurId)->get();
+        $data = Formateur::where('id', "!=", $user->id)->where('metier_id', $user->metier_id)->get();
 
-        $permutations_similaire = Permutation::whereIn('ville_id', $currentFormateurPermutations->pluck('ville_id'))
-            ->where('formateur_id', '!=', $currentFormateurId)
-            ->get();
-
+        $permutaion_1=Permutation::whereIn('formateur_id', $data->pluck('id'))->where('ville_id', $userVilledata[0]->id)->get();
+        $permutaion_2=Permutation::whereIn('formateur_id', $data->pluck('id'))->whereIn('ville_id', $villesRelatedToSameRegion->pluck('id'))->get();
 
 
-        $formateur_matches = Formateur::whereIn('id', $permutations_similaire->pluck('formateur_id'))
-            ->where('metier_id', Auth::user()->metier_id)
-            ->get();
+        $data1=Formateur::whereIn('id', $permutaion_1->pluck('formateur_id'))->get();
+        $data2=Formateur::whereIn('id', $permutaion_2->pluck('formateur_id'))->whereNotIn('id', $data1->pluck('id'))->get();
+       
 
-        return view('app.permutation.index', compact('user', 'permutations_similaire'));
+
+        return view('app.permutation.index', compact('user', 'data1', 'data2'));
     }
 
     /**

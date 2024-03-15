@@ -58,6 +58,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
     Route::get('/admin/metiers', [AdminController::class, 'getMetiers'])->name('admin.metier');
     Route::get('/admin/etablissements', [AdminController::class, 'getEtablissements'])->name('admin.etablissement');
-
-
+    Route::post('/admin/metier', [AdminController::class, 'addMetier'])->name('admin.metier');
+    Route::post('/admin/etablissement', [AdminController::class, 'addEtablissement'])->name('admin.etablissement');
+    Route::delete('/admin/metier/{id}', [AdminController::class, 'deleteMetier'])->name('admin.metier');
+    Route::delete('/admin/etablissement/{id}', [AdminController::class, 'deleteEtablissement'])->name('admin.etablissement');
+    Route::put('/admin/metier/{id}', [AdminController::class, 'updateMetier'])->name('admin.metier');
+    Route::put('/admin/etablissement/{id}', [AdminController::class, 'updateEtablissement'])->name('admin.etablissement');
 });

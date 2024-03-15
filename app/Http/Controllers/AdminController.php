@@ -18,16 +18,16 @@ class AdminController extends Controller
         $usersCount = Formateur::count();
         $etablissementsCount = Etablissement::count();
         $matiersCount = Metier::count();
-        $demandesCount = Permutation::count()->where('valide', '0');
-        $demandesCountSuccess = ceil(Permutation::count()->where('valide', '1') / 2);
+        $demandesCount = Permutation::where('valide', '0')->count();
+        $demandesCountSuccess = ceil(Permutation::where('valide', '1')->count() / 2);
 
-        return view('admin.index', compact('admin', 'usersCount', 'etablissementsCount', 'matiersCount', 'demandesCount', 'demandesCountSuccess',));
+        return view('app.admin.index', compact('admin', 'usersCount', 'etablissementsCount', 'matiersCount', 'demandesCount', 'demandesCountSuccess',));
     }
     public function getMetiers()
     {
         $admin = Auth::user();
         $matiers = Metier::all();
-        return view('admin.metier', compact('admin', 'matiers'));
+        return view('app.admin.metier', compact('admin', 'matiers'));
     }
 
 
@@ -36,7 +36,7 @@ class AdminController extends Controller
         Metier::create([
             'metier' => $request->metier
         ]);
-        return redirect()->route('admin.metier')->with('success', 'Enregistrement effectuee avec succes');
+        return redirect()->route('app.admin.metier')->with('success', 'Enregistrement effectuee avec succes');
     }
 
     public function updateMetier(Request $request, int $id)
@@ -45,14 +45,14 @@ class AdminController extends Controller
         $metier->update([
             'metier' => $request->metier
         ]);
-        return redirect()->route('admin.metier')->with('success', 'Modification effectuee avec succes');
+        return redirect()->route('app.admin.metier')->with('success', 'Modification effectuee avec succes');
     }
 
     public function deleteMetier(int $id)
     {
         $metier = Metier::findOrFail($id);
         $metier->delete();
-        return redirect()->route('admin.metier')->with('success', 'Suppression effectuee avec succes');
+        return redirect()->route('app.admin.metier')->with('success', 'Suppression effectuee avec succes');
     }
 
 
@@ -60,7 +60,7 @@ class AdminController extends Controller
     {
         $admin = Auth::user();
         $etablissements = Etablissement::all();
-        return view('admin.etablissement', compact('admin', 'etablissements'));
+        return view('app.admin.etablissement', compact('admin', 'etablissements'));
     }
 
 
@@ -74,7 +74,7 @@ class AdminController extends Controller
             'tel' => $request->tel,
             'fax' => $request->fax,
         ]);
-        return redirect()->route('admin.etablissement')->with('success', 'Enregistrement effectuee avec succes');
+        return redirect()->route('app.admin.etablissement')->with('success', 'Enregistrement effectuee avec succes');
     }
 
 
@@ -89,13 +89,13 @@ class AdminController extends Controller
             'tel' => $request->tel,
             'fax' => $request->fax,
         ]);
-        return redirect()->route('admin.etablissement')->with('success', 'Modification effectuee avec succes');
+        return redirect()->route('app.admin.etablissement')->with('success', 'Modification effectuee avec succes');
     }
 
     public function deleteEtablissement(int $id)
     {
         $etablissement = Etablissement::findOrFail($id);
         $etablissement->delete();
-        return redirect()->route('admin.etablissement')->with('success', 'Suppression effectuee avec succes');
+        return redirect()->route('app.admin.etablissement')->with('success', 'Suppression effectuee avec succes');
     }
 }

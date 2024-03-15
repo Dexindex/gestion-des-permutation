@@ -41,7 +41,6 @@ Route::redirect('/', '/home')->name('accueil')->middleware('auth');
 // Permutation routes
 Route::middleware('auth')->group(function () {
     Route::resource('permutation', PermutationController::class);
-
 });
 Route::put('/permutation/{formateur}/edit', [PermutationController::class, 'valider'])->name('permutation.valider')->middleware('auth');
 
@@ -55,6 +54,10 @@ Route::middleware('auth')->group(function () {
 
 
 // Admin routes
-// Route::middleware(['auth', 'admin'])->group(function () {
-//     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-// });
+Route::middleware('auth')->group(function () {
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+    Route::get('/admin/metiers', [AdminController::class, 'getMetiers'])->name('admin.metier');
+    Route::get('/admin/etablissements', [AdminController::class, 'getEtablissements'])->name('admin.etablissement');
+
+
+});

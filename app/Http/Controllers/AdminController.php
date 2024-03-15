@@ -60,7 +60,7 @@ class AdminController extends Controller
     {
         $admin = Auth::user();
         $etablissements = Etablissement::all();
-        return view('admin.metier', compact('admin', 'etablissements'));
+        return view('admin.etablissement', compact('admin', 'etablissements'));
     }
 
 

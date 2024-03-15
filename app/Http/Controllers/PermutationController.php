@@ -25,13 +25,13 @@ class PermutationController extends Controller
 
         $data = Formateur::where('id', "!=", $user->id)->where('metier_id', $user->metier_id)->get();
 
-        $permutaion_1=Permutation::whereIn('formateur_id', $data->pluck('id'))->where('ville_id', $userVilledata[0]->id)->get();
-        $permutaion_2=Permutation::whereIn('formateur_id', $data->pluck('id'))->whereIn('ville_id', $villesRelatedToSameRegion->pluck('id'))->get();
+        $permutaion_1 = Permutation::whereIn('formateur_id', $data->pluck('id'))->where('ville_id', $userVilledata[0]->id)->where('valide', "0")->get();
+        $permutaion_2 = Permutation::whereIn('formateur_id', $data->pluck('id'))->whereIn('ville_id', $villesRelatedToSameRegion->pluck('id'))->where('valide', "0")->get();
 
 
-        $data1=Formateur::whereIn('id', $permutaion_1->pluck('formateur_id'))->get();
-        $data2=Formateur::whereIn('id', $permutaion_2->pluck('formateur_id'))->whereNotIn('id', $data1->pluck('id'))->get();
-       
+        $data1 = Formateur::whereIn('id', $permutaion_1->pluck('formateur_id'))->get();
+        $data2 = Formateur::whereIn('id', $permutaion_2->pluck('formateur_id'))->whereNotIn('id', $data1->pluck('id'))->get();
+
 
 
         return view('app.permutation.index', compact('user', 'data1', 'data2'));
@@ -65,9 +65,11 @@ class PermutationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Permutation $permutation)
+    public function show(int $id)
     {
-        //
+        $user = Auth::user();
+        $formateur = Formateur::findOrFail($id);
+        return view('app.permutation.show', compact('formateur', 'user'));
     }
 
     /**
@@ -80,6 +82,9 @@ class PermutationController extends Controller
         $villes = Ville::all();
         return view('app.permutation.edit', compact('permutation', 'user', 'villes'));
     }
+
+
+
 
     /**
      * Update the specified resource in storage.
@@ -104,5 +109,15 @@ class PermutationController extends Controller
     {
         $permutation->delete();
         return redirect()->route('home')->with('success', 'Suppression effectuee avec succes');
+    }
+
+
+    public function valider(int $id)
+    {
+        $permutation = Permutation::findOrFail($id);
+        $permutation->update([
+            'valide' => "1",
+        ]);
+        return redirect()->route('home')->with('success', 'Validation effectuee avec succes');
     }
 }

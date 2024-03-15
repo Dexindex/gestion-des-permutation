@@ -32,7 +32,8 @@
                             <div class="panel">
                                 <div class="mb-5 flex items-center justify-between">
                                     <h5 class="text-lg font-semibold dark:text-white-light">Profile</h5>
-                                    <a href="{{ route('formateur.edit', $user->id) }}" class="btn btn-primary rounded-full p-2 ltr:ml-auto rtl:mr-auto">
+                                    <a href="{{ route('formateur.edit', $user->id) }}"
+                                        class="btn btn-primary rounded-full p-2 ltr:ml-auto rtl:mr-auto">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg" class="h-5 w-5">
                                             <path opacity="0.5" d="M4 22H20" stroke="currentColor" stroke-width="1.5"
@@ -110,7 +111,8 @@
                             <div class="panel lg:col-span-2 xl:col-span-3">
                                 <div class="mb-5" style="display: flex; justify-content: space-between">
                                     <h5 class="text-lg font-semibold dark:text-white-light">Mes Demandes</h5>
-                                    <a href="{{ route('permutation.create') }}" class="btn btn-secondary rounded-full text-primary ">Nouvelle Demande</a>
+                                    <a href="{{ route('permutation.create') }}"
+                                        class="btn btn-secondary rounded-full text-primary ">Nouvelle Demande</a>
                                 </div>
                                 <div class="mb-5">
                                     <div class="table-responsive font-semibold text-[#515365] dark:text-white-light">
@@ -132,12 +134,12 @@
                                                             ({{ $permutation->ville->region->region }})
                                                         </td>
                                                         <td>
-                                                            @if ($permutation->statut == 0)
+                                                            @if ($permutation->valide == 0)
                                                                 <div
                                                                     class="flex h-1.5 w-full rounded-full bg-[#ebedf2] dark:bg-dark/40">
                                                                     <div class="w-[15%] rounded-full bg-danger"></div>
                                                                 </div>
-                                                            @elseif ($permutation->statut == 1)
+                                                            @elseif ($permutation->valide == 1)
                                                                 <div
                                                                     class="flex h-1.5 w-full rounded-full bg-[#ebedf2] dark:bg-dark/40">
                                                                     <div class="w-full rounded-full bg-success"></div>
@@ -146,21 +148,44 @@
 
                                                         </td>
                                                         <td class="text-danger" style="display: flex;">
-                                                            <form
-                                                                action="{{ route('permutation.destroy', $permutation->id) }}"
-                                                                method="post" id="deleteForm">
-                                                                @method('DELETE')
-                                                                @csrf
-                                                                <button class="btn btn-sm btn-danger rounded-full"
-                                                                    type="button"
-                                                                    onclick="showDeleteConfirmation(event)">
-                                                                    <box-icon color="#fafafa" name="trash"></box-icon>
-                                                                </button>
-                                                            </form>
-                                                            <a href="{{ route('permutation.edit', $permutation->id) }}" class="btn btn-sm btn-success rounded-full ml-2"
-                                                                type="button" >
-                                                                <box-icon color="#fafafa" name="edit"></box-icon>
-                                                            </a>
+                                                            @if ($permutation->valide == 0)
+                                                                <form
+                                                                    action="{{ route('permutation.destroy', $permutation->id) }}"
+                                                                    method="post" id="deleteForm">
+                                                                    @method('DELETE')
+                                                                    @csrf
+                                                                    <button class="btn btn-sm btn-danger rounded-full"
+                                                                        type="button"
+                                                                        onclick="showDeleteConfirmation(event)">
+                                                                        <box-icon color="#fafafa"
+                                                                            name="trash"></box-icon>
+                                                                    </button>
+                                                                </form>
+                                                                <a href="{{ route('permutation.edit', $permutation->id) }}"
+                                                                    class="btn btn-sm btn-secondary rounded-full ml-2"
+                                                                    type="button">
+                                                                    <box-icon color="#fafafa"
+                                                                        name="edit"></box-icon>
+                                                                </a>
+
+                                                                <form
+                                                                    action="{{ route('permutation.valider', $permutation->id) }}"
+                                                                    method="post" id="validerForm">
+                                                                    @method('put')
+                                                                    @csrf
+                                                                    <button
+                                                                        class="btn btn-sm btn-success rounded-full ml-2"
+                                                                        type="button"
+                                                                        onclick="showActionConfirmation(event)">
+                                                                        <box-icon color="#fafafa"
+                                                                            name="check"></box-icon>
+                                                                    </button>
+                                                                </form>
+                                                            @else
+                                                            <div class="btn btn-success">Aucune Action (Valider)</div>
+                                                            @endif
+
+
 
                                                         </td>
                                                     </tr>

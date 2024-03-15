@@ -40,7 +40,9 @@ Route::redirect('/', '/home')->name('accueil')->middleware('auth');
 // Permutation routes
 Route::middleware('auth')->group(function () {
     Route::resource('permutation', PermutationController::class);
+
 });
+Route::put('/permutation/{formateur}/edit', [PermutationController::class, 'valider'])->name('permutation.valider')->middleware('auth');
 
 
 // Formateur routes

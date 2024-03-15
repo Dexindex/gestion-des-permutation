@@ -109,6 +109,25 @@
     }
 
 
+    function showActionConfirmation(event) {
+        event.preventDefault();
+        Swal.fire({
+            title: "Voulez-vous vraiment permettre cette action?",
+            text: "Vous ne pourrez pas reprendre cette action!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            cancelButtonText: "Annuler",
+            confirmButtonText: "Oui!",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('validerForm').submit();
+            }
+        });
+    }
+
+
 
 
     document.addEventListener('alpine:init', () => {

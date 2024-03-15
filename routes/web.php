@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FormateurController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
@@ -49,3 +50,11 @@ Route::put('/permutation/{formateur}/edit', [PermutationController::class, 'vali
 Route::middleware('auth')->group(function () {
     Route::resource('formateur', FormateurController::class)->except('create', 'store');
 });
+
+
+
+
+// Admin routes
+// Route::middleware(['auth', 'admin'])->group(function () {
+//     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+// });

@@ -7,6 +7,7 @@ use App\Models\Formateur;
 use App\Models\Metier;
 use App\Models\Permutation;
 use App\Models\Ville;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -60,9 +61,13 @@ class AdminController extends Controller
 
     public function deleteMetier(int $id)
     {
-        $metier = Metier::findOrFail($id);
-        $metier->delete();
-        return redirect()->route('admin.metier')->with('success', 'Suppression effectuee avec succes');
+        try {
+            $metier = Metier::findOrFail($id);
+            $metier->delete();
+            return redirect()->route('admin.metier')->with('success', 'Suppression effectuee avec succes');
+        } catch (QueryException $e) {
+            return redirect()->route('admin.metier')->with('error', 'Impossible de supprimer ce métier.');
+        }
     }
 
 
@@ -109,8 +114,12 @@ class AdminController extends Controller
 
     public function deleteEtablissement($id)
     {
-        $etablissement = Etablissement::findOrFail($id);
-        $etablissement->delete();
-        return redirect()->route('admin.etablissement')->with('success', 'Suppression effectuee avec succes');
+        try {
+            $etablissement = Etablissement::findOrFail($id);
+            $etablissement->delete();
+            return redirect()->route('admin.etablissement')->with('success', 'Suppression effectuee avec succes');
+        } catch (QueryException $e) {
+            return redirect()->route('admin.etablissement')->with('error', 'Impossible de supprimer ce établissement.');
+        }
     }
 }

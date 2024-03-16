@@ -69,61 +69,9 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 
 
-//!Created at updated at (Permutation)
 
-
-
-write a query to get  :
-1-the idea here to get all the not valide permutations,that is meet the specific needs of the current formateur(is exchange).
-2-the criteria should be the same metiers(for both current formateur - and others) and in the same region(based the ville that the current formateur selected it in his permutation records)[please make those records found in the same selected ville the first].
-3-retrieve any other formateur can be exchange with the current formateur.
-
-example :
-i am a formateur with id of 1, my metier is 2,my ville is 3->fes (located in the region 1->fes meknes.)
-i insert multiple permutations ,one with ville_id of 10->casablanca (located in the region 2->casablanca,settat.),and other one with ville_id of 32->rabat(located in the region 4->rabat sale.)
-
-
-other formateurs with id(??),there metier is same as mine 2,one(id=80) there ville is ville_id of 10->casablanca (located in the region 2->casablanca,settat.),one(id=140) there ville is ville_id of 32->rabat(located in the region 4->rabat sale.),and other one(id=1780) there ville is ville_id of 47->laayoun(located in the region 8->sahara.)
-
-
-now when i search for matching i should get the two who have id of 80 and 140
-
-
-
-
-
-
-
-
-Write a SQL query to retrieve potential formateur matches for exchange based on the following criteria:
-
-Only return formateurs that have not already been valid .
-
-The formateurs must have the same metier  as the current formateur.
-
-Limit results to formateurs active in the same region as one of the current formateur's permutaiton records.
-
-Order results so that formateurs active in the same ville as the current formateur's permutaiton records appear first.
-
-For example:
-
-The current formateur (id=1) has:
-
-Metier=2
-ville_id =3
-One permutation record with ville_id=32 (Rabat)
-Another permutation record with ville_id=10 (Casablanca)
-Other formateurs:
-
-formateur id=80 has metier=2 and ville_id=10 (Casablanca)
-formateur id=140 has metier=2 and ville_id=32 (Rabat)
-formateur id=1780 has metier=2 and ville_id=47 (Laayoun)
-The query should return formateurs 80 and 140 first, since they match the criteria of:
-
-Not already valid
-Same metier
-Active in the same ville or same region as one of the current formateur's permutation records
-Write the SQL query to return potential formateur matches based on these criteria.
+//admin
+__16^pok@qwe87469yyiujhnmb
 
 
 

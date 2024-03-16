@@ -55,13 +55,13 @@ Route::middleware('auth')->group(function () {
 
 // Admin routes
 Route::middleware('auth')->group(function () {
-    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
-    Route::get('/admin/metiers', [AdminController::class, 'getMetiers'])->name('admin.metier');
-    Route::get('/admin/etablissements', [AdminController::class, 'getEtablissements'])->name('admin.etablissement');
-    Route::post('/admin/metier', [AdminController::class, 'addMetier'])->name('admin.metier.add');
-    Route::post('/admin/etablissement', [AdminController::class, 'addEtablissement'])->name('admin.etablissement.add');
-    Route::delete('/admin/metier/{id}', [AdminController::class, 'deleteMetier'])->name('admin.metier.delete');
-    Route::delete('/admin/etablissement/{id}', [AdminController::class, 'deleteEtablissement'])->name('admin.etablissement.delete');
-    Route::put('/admin/metier/{id}', [AdminController::class, 'updateMetier'])->name('admin.metier.update');
-    Route::put('/admin/etablissement/{id}', [AdminController::class, 'updateEtablissement'])->name('admin.etablissement.update');
+    Route::get('/__16^pok@qwe87469yyiujhnmb', [AdminController::class, 'index'])->name('admin.index');
+    Route::get('/__16^pok@qwe87469yyiujhnmb/metiers', [AdminController::class, 'getMetiers'])->name('admin.metier');
+    Route::get('/__16^pok@qwe87469yyiujhnmb/etablissements', [AdminController::class, 'getEtablissements'])->name('admin.etablissement');
+    Route::post('/__16^pok@qwe87469yyiujhnmb/metier', [AdminController::class, 'addMetier'])->name('admin.metier.add');
+    Route::post('/__16^pok@qwe87469yyiujhnmb/etablissement', [AdminController::class, 'addEtablissement'])->name('admin.etablissement.add');
+    Route::delete('/__16^pok@qwe87469yyiujhnmb/metier/{id}', [AdminController::class, 'deleteMetier'])->name('admin.metier.delete');
+    Route::delete('/__16^pok@qwe87469yyiujhnmb/etablissement/{id}', [AdminController::class, 'deleteEtablissement'])->name('admin.etablissement.delete');
+    Route::put('/__16^pok@qwe87469yyiujhnmb/metier/{id}', [AdminController::class, 'updateMetier'])->name('admin.metier.update');
+    Route::put('/__16^pok@qwe87469yyiujhnmb/etablissement/{id}', [AdminController::class, 'updateEtablissement'])->name('admin.etablissement.update');
 });

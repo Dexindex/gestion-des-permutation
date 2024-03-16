@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('ville_id')->constrained();
             $table->foreignId('formateur_id')->constrained();
             $table->boolean('valide');
-   	    $table->timestamps();
+            $table->timestamps();
         });
     }
 

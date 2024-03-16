@@ -6,6 +6,7 @@ use App\Models\Etablissement;
 use App\Models\Formateur;
 use App\Models\Metier;
 use App\Models\Permutation;
+use App\Models\Ville;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,19 +16,22 @@ class AdminController extends Controller
     public function index()
     {
         $admin = Auth::user();
+        $etablissement = Etablissement::find($admin->etablissement_id);
+
         $usersCount = Formateur::count();
         $etablissementsCount = Etablissement::count();
         $matiersCount = Metier::count();
         $demandesCount = Permutation::where('valide', '0')->count();
         $demandesCountSuccess = ceil(Permutation::where('valide', '1')->count() / 2);
 
-        return view('app.admin.index', compact('admin', 'usersCount', 'etablissementsCount', 'matiersCount', 'demandesCount', 'demandesCountSuccess',));
+        return view('app.admin.index', compact('admin', 'etablissement', 'usersCount', 'etablissementsCount', 'matiersCount', 'demandesCount', 'demandesCountSuccess',));
     }
     public function getMetiers()
     {
         $admin = Auth::user();
-        $matiers = Metier::all();
-        return view('app.admin.metier', compact('admin', 'matiers'));
+        $etablissement = Etablissement::find($admin->etablissement_id);
+        $metiers = Metier::all();
+        return view('app.admin.metier', compact('admin', 'metiers', 'etablissement'));
     }
 
 
@@ -36,7 +40,7 @@ class AdminController extends Controller
         Metier::create([
             'metier' => $request->metier
         ]);
-        return redirect()->route('app.admin.metier')->with('success', 'Enregistrement effectuee avec succes');
+        return redirect()->route('admin.metier')->with('success', 'Enregistrement effectuee avec succes');
     }
 
     public function updateMetier(Request $request, int $id)
@@ -45,22 +49,24 @@ class AdminController extends Controller
         $metier->update([
             'metier' => $request->metier
         ]);
-        return redirect()->route('app.admin.metier')->with('success', 'Modification effectuee avec succes');
+        return redirect()->route('admin.metier')->with('success', 'Modification effectuee avec succes');
     }
 
     public function deleteMetier(int $id)
     {
         $metier = Metier::findOrFail($id);
         $metier->delete();
-        return redirect()->route('app.admin.metier')->with('success', 'Suppression effectuee avec succes');
+        return redirect()->route('admin.metier')->with('success', 'Suppression effectuee avec succes');
     }
 
 
     public function getEtablissements()
     {
         $admin = Auth::user();
+        $etablissement = Etablissement::find($admin->etablissement_id);
+        $villes = Ville::orderBy('ville')->get();
         $etablissements = Etablissement::all();
-        return view('app.admin.etablissement', compact('admin', 'etablissements'));
+        return view('app.admin.etablissement', compact('admin', 'etablissements', 'etablissement', 'villes'));
     }
 
 
@@ -74,7 +80,7 @@ class AdminController extends Controller
             'tel' => $request->tel,
             'fax' => $request->fax,
         ]);
-        return redirect()->route('app.admin.etablissement')->with('success', 'Enregistrement effectuee avec succes');
+        return redirect()->route('admin.etablissement')->with('success', 'Enregistrement effectuee avec succes');
     }
 
 
@@ -89,13 +95,13 @@ class AdminController extends Controller
             'tel' => $request->tel,
             'fax' => $request->fax,
         ]);
-        return redirect()->route('app.admin.etablissement')->with('success', 'Modification effectuee avec succes');
+        return redirect()->route('admin.etablissement')->with('success', 'Modification effectuee avec succes');
     }
 
     public function deleteEtablissement(int $id)
     {
         $etablissement = Etablissement::findOrFail($id);
         $etablissement->delete();
-        return redirect()->route('app.admin.etablissement')->with('success', 'Suppression effectuee avec succes');
+        return redirect()->route('admin.etablissement')->with('success', 'Suppression effectuee avec succes');
     }
 }

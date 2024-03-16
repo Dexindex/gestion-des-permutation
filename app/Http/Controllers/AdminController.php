@@ -15,6 +15,9 @@ class AdminController extends Controller
 
     public function index()
     {
+        if (auth()->check() && auth()->user()->email != 'admin@admin.admin') {
+            return redirect()->route('home');
+        }
         $admin = Auth::user();
         $etablissement = Etablissement::find($admin->etablissement_id);
 
@@ -28,6 +31,9 @@ class AdminController extends Controller
     }
     public function getMetiers()
     {
+        if (auth()->check() && auth()->user()->email != 'admin@admin.admin') {
+            return redirect()->route('home');
+        }
         $admin = Auth::user();
         $etablissement = Etablissement::find($admin->etablissement_id);
         $metiers = Metier::all();
@@ -62,6 +68,9 @@ class AdminController extends Controller
 
     public function getEtablissements()
     {
+        if (auth()->check() && auth()->user()->email != 'admin@admin.admin') {
+            return redirect()->route('home');
+        }
         $admin = Auth::user();
         $etablissement = Etablissement::find($admin->etablissement_id);
         $villes = Ville::orderBy('ville')->get();

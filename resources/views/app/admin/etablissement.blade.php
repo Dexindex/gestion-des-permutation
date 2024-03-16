@@ -1,3 +1,4 @@
+
 <x-head-section title="Administration - Etablissements" />
 
 <body x-data="main" class="relative overflow-x-hidden font-nunito text-sm font-normal antialiased"

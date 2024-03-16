@@ -1,3 +1,5 @@
+
+
 <x-head-section title="Administration - Accueil" />
 
 <body x-data="main" class="relative overflow-x-hidden font-nunito text-sm font-normal antialiased"

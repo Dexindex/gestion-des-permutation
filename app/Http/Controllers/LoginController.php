@@ -22,7 +22,11 @@ class LoginController extends Controller
         ];
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->route('accueil');
+            if (Auth::user()->email == 'admin@admin.admin') {
+                return redirect()->route('admin.index');
+            } else {
+                return redirect()->route('accueil');
+            }
         } else {
             return redirect()->route('login.show')->with('error', 'Compte inexistant ou mot de passe incorrect');
         }

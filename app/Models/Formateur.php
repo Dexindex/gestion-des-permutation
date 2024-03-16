@@ -25,5 +25,5 @@ class Formateur extends Model
     }
 
 
-}
 
+}

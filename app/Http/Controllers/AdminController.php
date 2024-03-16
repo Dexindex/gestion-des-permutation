@@ -98,7 +98,7 @@ class AdminController extends Controller
         return redirect()->route('admin.etablissement')->with('success', 'Modification effectuee avec succes');
     }
 
-    public function deleteEtablissement(int $id)
+    public function deleteEtablissement($id)
     {
         $etablissement = Etablissement::findOrFail($id);
         $etablissement->delete();

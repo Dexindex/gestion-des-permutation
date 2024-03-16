@@ -221,7 +221,8 @@
                                                                                     <box-icon
                                                                                         name='tag'></box-icon>
                                                                                 </span>
-                                                                                <input type="text" name="code" value="{{ $etablissement->code }}"
+                                                                                <input type="text" name="code"
+                                                                                    value="{{ $etablissement->code }}"
                                                                                     placeholder="Code"
                                                                                     class="form-input ltr:pl-10 rtl:pr-10" />
                                                                             </div>
@@ -231,7 +232,8 @@
                                                                                     <box-icon
                                                                                         name='map'></box-icon>
                                                                                 </span>
-                                                                                <input type="text" name="adresse" value="{{ $etablissement->adresse }}"
+                                                                                <input type="text" name="adresse"
+                                                                                    value="{{ $etablissement->adresse }}"
                                                                                     placeholder="Adresse"
                                                                                     class="form-input ltr:pl-10 rtl:pr-10" />
                                                                             </div>
@@ -241,7 +243,8 @@
                                                                                     <box-icon
                                                                                         name='phone'></box-icon>
                                                                                 </span>
-                                                                                <input type="text" name="tel" value="{{ $etablissement->tel }}"
+                                                                                <input type="text" name="tel"
+                                                                                    value="{{ $etablissement->tel }}"
                                                                                     placeholder="Telephone"
                                                                                     class="form-input ltr:pl-10 rtl:pr-10" />
                                                                             </div>
@@ -251,7 +254,8 @@
                                                                                     <box-icon
                                                                                         name='phone-call'></box-icon>
                                                                                 </span>
-                                                                                <input type="text" name="fax" value="{{ $etablissement->fax }}"
+                                                                                <input type="text" name="fax"
+                                                                                    value="{{ $etablissement->fax }}"
                                                                                     placeholder="Fax"
                                                                                     class="form-input ltr:pl-10 rtl:pr-10" />
                                                                             </div>
@@ -316,9 +320,12 @@
 
 
     @if (session('error'))
-        <x-alert type="error" msg="{{ session('error') }}" /> @endif
-                                                                                            @if (session('success')) <x-alert type="success" msg="{{ session('success') }}" /> @endif
-                                                                                            </body>
+        <x-alert type="error" msg="{{ session('error') }}" />
+    @endif
+    @if (session('success'))
+        <x-alert type="success" msg="{{ session('success') }}" />
+    @endif
+</body>
 
 
-                                                                                            </html>
+</html>
